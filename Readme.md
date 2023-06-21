@@ -124,46 +124,23 @@ class database:
 
       
       
-ارد کردن دیتابیس
+
 if os.path.isfile('restaurant.db')==FALSE:
+
   db=database('restaurant.db') 
-  db.inserts(1,چلومرغ',22000,True)
-  db.inserts(2,'چلوکباب کوبیده',33000,True)
-  db.inserts(3,'چلوکباب مرغ',11000,True)
-  db.inserts(4,'جوجه کباب با استخوان',20000,True)
-  db.inserts(5,'جوجه کباب بدون استخوان',12000,False)
-  db.inserts(6,'چلوخورشت فسنجان',10000,False)
-  db.inserts(7,'چلوخورشت مرغ',13000,False)
-  db.inserts(8,'چلوخورشت سبزی',33000,True)
-  db.inserts(9,'چلوخورشت قیمه',11000,True)
-  db.inserts(10,'چلوخورشت کرفس',20000,True)
-  db.inserts(11,'چلوخورشت بادمجان',12000,False)
-  db.inserts(12,'چلوخورشت لوبیا سبز',10000,False)
-  db.inserts(13,'سبزی پلو با ماهی',13000,False)
-  db.inserts(14,'باقالی پلو با ران',33000,True)
-  db.inserts(15,'عدس پلو',11000,True)
-  db.inserts(16,'ماش پلو',20000,True)
-  db.inserts(17,'لوبیا پلو',12000,False)
-  db.inserts(18,'نوشابه خانواده پپسی',10000,False)
-  db.inserts(19,'نوشابه خانواده کولا',13000,False)
-  db.inserts(20,'سون خانواده',33000,True)
-  db.inserts(21,'دوغ گازدار خانواده',11000,True)
-  db.inserts(22,'دوغ بدون گاز خانواده',20000,True)
-  db.inserts(23,'دوغ محلی خانواده',12000,False)
-  db.inserts(24,'دوغ آبعلی',10000,False)
-  db.inserts(25,'نوشابه کوچک',13000,False)
-  db.inserts(26,'فانتازا قوطی',33000,True)
-  db.inserts(27,'کولا قوطی',11000,True)
-  db.inserts(28,'پپسی قوطی',20000,True)
-  db.inserts(29,'لیمونات شیشه ای',12000,False)
-  db.inserts(30,'پپسی شیشه ای زرد',10000,False)
-  db.inserts(31,'پپسی شیشه ای مشکی',13000,False)
-  db.inserts(32,'ماشایر هلویی',33000,True)
-  db.inserts(33,'ماشیر لیمویی',11000,True)
   
+  #db.insert(id,'name of food',price,is food?)
   
-else:
+  db.insert(1,'pizza',2000,True)
+
+  else:
   db=database('restaurant.db')
+
+  # if you have drink,you should write False for (is food?) question
+
+  
+  
+
 
 
 
