@@ -1,5 +1,5 @@
 # Restaurant-management
-you can make your database with your own progam or use sample code:
+
 
 
 
@@ -166,4 +166,4 @@ else:
   db=database('restaurant.db')
 
 
-this code make database and some function to use it
+
