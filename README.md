@@ -1,9 +1,18 @@
 # Restaurant-management
 you can make your database with your own progam or use sample code:
-#region کلاس دیتابیس
+
+
+
+
+
+
+
+
 class database:
-    def __init__(self,db):# اینیت برای انتقال دیتابیس به اتربیوت است 
-      self.__dbs_db=db # برای دیتابیس یک اتربیوت دلخواه میسازیم و متغیر دیتابیس را  داخل اتربویت میریزیم
+
+
+    def __init__(self,db): 
+      self.__dbs_db=db 
       self.connection=sqlite3.connect(db)
       self.cursor=self.connection.cursor()
       self.cursor.execute("""
@@ -28,63 +37,63 @@ class database:
                                 (table_reciepts.count * table_reciepts.price) AS sum
                                 FROM table_menu
                                 INNER JOIN table_reciepts ON table_menu.ID == table_reciepts.menu_id
-                               """)#درواقع تمام چیزی که باید داخل لیست باکس نمایش دهیم ویو است                                                                    
+                               """)                                                                
                             
       self.connection.commit()
-      self.connection.close()#برای کمتر شدن حافظه کانکشن رو میبندیم
+      self.connection.close()
     
     def inserts(self,id,name,price,Is_food):
-      self.connection=sqlite3.connect(self.__dbs_db)#یک کانکشن بر روی این دیتابیس باز کن
+      self.connection=sqlite3.connect(self.__dbs_db)
       self.cursor=self.connection.cursor()
-      self.cursor.execute("INSERT INTO table_menu VALUES(?,?,?,?) " , (id,name,price,Is_food))#مقادیری که بهت میدم رو داخل تیبل منو بریز
+      self.cursor.execute("INSERT INTO table_menu VALUES(?,?,?,?) " , (id,name,price,Is_food))
       self.connection.commit()
 
-    def get_menu_item(self,Is_food):#مقادیر منو را دریافت کن بر اساس ایزفود
+    def get_menu_item(self,Is_food):
        self.connection=sqlite3.connect(self.__dbs_db)
        self.cursor=self.connection.cursor()
-       self.cursor.execute("SELECT * FROM table_menu WHERE Is_food=?",(Is_food,))#برای غذاها تورو و برای نوشیدنی ها فالس بر میگرداند
-       result=self.cursor.fetchall()#چون تغیری روی دیتابیس انجام نمیدهیم که دائمی باشد از فچآل استفاده میکنیم
+       self.cursor.execute("SELECT * FROM table_menu WHERE Is_food=?",(Is_food,))
+       result=self.cursor.fetchall()
        return result
 
-    def get_max_res_id(self):#متدی که بزرگترین آیدی تیبل رسیپتس را میگیرد 
+    def get_max_res_id(self): 
       self.connection=sqlite3.connect(self.__dbs_db)
       self.cursor=self.connection.cursor()
       self.cursor.execute("SELECT MAX (reciept_id) FROM table_reciepts")
       result=self.cursor.fetchall()#چون تغیری روی دیتابیس انجام نمیدهیم که دائمی باشد از فچآل استفاده میکنیم
       return result
 
-    def get_menu_item_by_name(self,item_name):#اطلاعات هر آیتم را میگیرد
+    def get_menu_item_by_name(self,item_name):
       self.connection=sqlite3.connect(self.__dbs_db)
       self.cursor=self.connection.cursor()
       self.cursor.execute('SELECT * FROM table_menu WHERE name=?',(item_name,))
       result=self.cursor.fetchall()
       return result
     
-    def insert_into_reciept(self,reciept_id,menu_id,count,price):# اطلاعات غذا من جمله قیمت را وارد تیبل رزیپتس میکند
+    def insert_into_reciept(self,reciept_id,menu_id,count,price):
       self.connection=sqlite3.connect(self.__dbs_db)
       self.cursor=self.connection.cursor()
       self.cursor.execute("INSERT INTO table_reciepts VALUES(?,?,?,?)",(reciept_id,menu_id,count,price))
       self.connection.commit()
       self.connection.close()
     
-    def get_reciept_by_recieptid_menuid(self,reciept_id,menu_id):#صورتحسابهارا با توجه به آیدی صورتحساب و آیدی منو برمیگرداند
+    def get_reciept_by_recieptid_menuid(self,reciept_id,menu_id):
        self.connection=sqlite3.connect(self.__dbs_db)
        self.cursor=self.connection.cursor()
        self.cursor.execute("SELECT * FROM table_reciepts WHERE reciept_id=? and menu_id=?",(reciept_id,menu_id))
        result=self.cursor.fetchall()
        return result
-    
-    def increase_count(self,reciept_id,menu_id):# کانت را یکی یکی افزایش میدهد با توجه به آیدی صورتحساب و  آیدی منو
+
+    def increase_count(self,reciept_id,menu_id):
       self.connection=sqlite3.connect(self.__dbs_db)
       self.cursor=self.connection.cursor()
       self.cursor.execute('UPDATE table_reciepts SET count=count+1 WHERE reciept_id=? and menu_id=?',(reciept_id,menu_id))
       self.connection.commit()
       self.connection.close()
     
-    def get_reciepts(self,reciept_id):#اطلاعات ویو را بر اساس آیدی صورتحساب برمیگرداند
+    def get_reciepts(self,reciept_id):
       self.connection=sqlite3.connect(self.__dbs_db)
       self.cursor=self.connection.cursor()
-      self.cursor.execute('SELECT * FROM view_menu_reciepts WHERE reciept_id=?',(reciept_id,))#وقتی میگیم تمامی ستون هارو برگردان یعنی تمامی اطلاعات رو برگردان
+      self.cursor.execute('SELECT * FROM view_menu_reciepts WHERE reciept_id=?',(reciept_id,))
       result=self.cursor.fetchall()
       return result 
     
@@ -115,12 +124,10 @@ class database:
 
       
       
-#endregion 
-      
-#region وارد کردن دیتابیس
-if os.path.isfile('restaurant.db')==FALSE:#اگر دیتابیس از قبل ساخته شده بود با این کد دیگر برنامه ارور نمیدهد
-  db=database('restaurant.db') # شی کلاس را میسازیم
-  db.inserts(1,'چلومرغ',22000,True) # متد اینسرت را ران میکند
+ارد کردن دیتابیس
+if os.path.isfile('restaurant.db')==FALSE:
+  db=database('restaurant.db') 
+  db.inserts(1,چلومرغ',22000,True)
   db.inserts(2,'چلوکباب کوبیده',33000,True)
   db.inserts(3,'چلوکباب مرغ',11000,True)
   db.inserts(4,'جوجه کباب با استخوان',20000,True)
@@ -156,7 +163,7 @@ if os.path.isfile('restaurant.db')==FALSE:#اگر دیتابیس از قبل س�
   
   
 else:
-  db=database('restaurant.db')#اگر دیتابیس را پاک کردیم دوباره میسازد
- #endregion 
+  db=database('restaurant.db')
+
 
 this code make database and some function to use it
